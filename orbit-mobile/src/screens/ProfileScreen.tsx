@@ -59,6 +59,7 @@ import { openSupportEmail, SupportButton } from '../components/SupportButton';
 import { useLanguage } from '../hyd/LanguageContext';
 import type { LegalDocId } from '../legal/content';
 import { parseVoiceResume } from '../hyd/voice';
+import { closeSeekerAccount } from '../services/accountDeletion';
 import { signOutUser } from '../services/auth';
 import {
   EMPTY_RESUME_DRAFT,
@@ -88,11 +89,13 @@ const MENU_ITEMS = [
 
   { key: 'privacy', label: 'Privacy Policy' },
 
-  { key: 'terms', label: 'Terms of Use' },
+  { key: 'terms', label: 'Terms for job seekers' },
+
+  { key: 'termsEmployer', label: 'Terms for employers' },
 
   { key: 'notice', label: 'Privacy Notice' },
 
-  { key: 'help', label: 'Support' },
+  { key: 'help', label: 'Support / grievance' },
 
 ] as const;
 
@@ -209,6 +212,7 @@ export function ProfileScreen() {
 
   const [savedStartups, setSavedStartups] = useState<Startup[]>([]);
   const [legalDoc, setLegalDoc] = useState<LegalDocId | null>(null);
+  const [deleteOpen, setDeleteOpen] = useState(false);
   const [resumeOpen, setResumeOpen] = useState(false);
   const [resumeDraft, setResumeDraft] = useState<SimpleResumeDraft>(EMPTY_RESUME_DRAFT);
   const [resumeText, setResumeText] = useState('');
@@ -271,6 +275,15 @@ export function ProfileScreen() {
 
     }
 
+  }
+
+  async function handleCloseAccount() {
+    try {
+      await closeSeekerAccount();
+      setDeleteOpen(false);
+    } catch (error) {
+      Alert.alert('Close account', error instanceof Error ? error.message : 'Could not close this account.');
+    }
   }
 
 
@@ -401,7 +414,7 @@ export function ProfileScreen() {
       setNotificationsOpen(true);
       return;
     }
-    if (key === 'privacy' || key === 'terms' || key === 'notice') {
+    if (key === 'privacy' || key === 'terms' || key === 'termsEmployer' || key === 'notice') {
       setLegalDoc(key);
       return;
     }
@@ -544,6 +557,13 @@ export function ProfileScreen() {
 
             <Text style={styles.signOutText}>Sign out</Text>
 
+          </Pressable>
+          <Pressable
+            testID="close-account"
+            style={({ pressed }) => [styles.signOut, pressed && styles.pressed]}
+            onPress={() => setDeleteOpen(true)}
+          >
+            <Text style={styles.signOutText}>Close account</Text>
           </Pressable>
 
         </ScrollView>
@@ -773,6 +793,24 @@ export function ProfileScreen() {
         </View>
 
       </Modal>
+
+      {deleteOpen ? (
+        <Modal visible transparent animationType="slide" onRequestClose={() => setDeleteOpen(false)}>
+          <Pressable style={styles.modalBackdrop} onPress={() => setDeleteOpen(false)} />
+          <View style={styles.modalSheet} testID="close-account-sheet">
+            <Text style={styles.modalTitle}>Close account</Text>
+            <Text style={styles.modalCopy}>
+              This clears your resume, applications, match alerts, and saved items on this device, then signs you out. Email support@orbit.app if you need remaining personal data erased from Orbit systems.
+            </Text>
+            <Pressable testID="close-account-confirm" onPress={() => void handleCloseAccount()} style={styles.modalPrimary}>
+              <Text style={styles.modalPrimaryText}>Close my account</Text>
+            </Pressable>
+            <Pressable testID="close-account-cancel" onPress={() => setDeleteOpen(false)} style={styles.signOut}>
+              <Text style={styles.signOutText}>Keep account</Text>
+            </Pressable>
+          </View>
+        </Modal>
+      ) : null}
 
       <LegalSheet docId={legalDoc} onClose={() => setLegalDoc(null)} />
 

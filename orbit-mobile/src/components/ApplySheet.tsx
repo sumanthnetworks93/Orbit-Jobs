@@ -40,9 +40,11 @@ export function ApplySheet({ job, visible, onClose }: Props) {
   const [joinWhen, setJoinWhen] = useState('');
   const [voiceNote, setVoiceNote] = useState('');
   const [resume, setResume] = useState('');
+  const [consent, setConsent] = useState(false);
 
   useEffect(() => {
     if (!visible) return;
+    setConsent(false);
     void getSavedResume().then((saved) => {
       if (!saved) return;
       setName((current) => current || saved.name);
@@ -71,6 +73,10 @@ export function ApplySheet({ job, visible, onClose }: Props) {
     }
     if (channel === 'whatsapp' && !isWhatsAppRelayEnabled()) {
       Alert.alert('WhatsApp paused', 'Super Admin has turned off the WhatsApp relay.');
+      return;
+    }
+    if (!consent) {
+      Alert.alert(copy.apply, 'Tick the box to share this apply with the employer. They see a masked phone, not your personal number.');
       return;
     }
     if (!name.trim() || !phone.trim() || !area.trim() || !lastJob.trim() || !joinWhen.trim()) {
@@ -141,6 +147,16 @@ export function ApplySheet({ job, visible, onClose }: Props) {
           />
           <Pressable testID="apply-fill-voice" onPress={fillFromVoice} style={styles.ghost}>
             <Text style={styles.ghostText}>Use voice sample</Text>
+          </Pressable>
+          <Pressable
+            testID="apply-consent"
+            onPress={() => setConsent((value) => !value)}
+            style={styles.consentRow}
+          >
+            <View style={[styles.check, consent && styles.checkOn]} />
+            <Text style={styles.consent}>
+              I understand this employer will see my name, area, work history, and a masked phone. Orbit will not give out my personal mobile.
+            </Text>
           </Pressable>
           <Text style={styles.mask}>{maskPhone(job.employerPhone)}</Text>
           <View style={styles.row}>
@@ -230,6 +246,18 @@ const styles = StyleSheet.create({
     color: colors.ink,
   },
   mask: { fontFamily: fonts.medium, fontSize: 12, color: colors.muted, marginVertical: 8 },
+  consentRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, marginTop: 8, marginBottom: 4 },
+  check: {
+    width: 18,
+    height: 18,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: colors.ink,
+    marginTop: 2,
+    backgroundColor: colors.white,
+  },
+  checkOn: { backgroundColor: colors.ink },
+  consent: { flex: 1, fontFamily: fonts.regular, fontSize: 12, lineHeight: 18, color: colors.muted },
   row: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 8 },
   primary: {
     backgroundColor: colors.black,

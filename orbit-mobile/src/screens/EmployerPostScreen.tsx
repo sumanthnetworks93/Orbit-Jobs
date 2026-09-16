@@ -8,6 +8,8 @@ import { useAuth } from '../context/AuthContext';
 import type { EmployerTabParamList } from '../navigation/types';
 import { quoteNextJobPost, recordJobPost, rupees, type JobQuote } from '../services/employerBilling';
 import { addEmployerListing } from '../services/employerJobs';
+import { getAdminProfiles } from '../services/adminModeration';
+import { assertSafeListing } from '../hyd/listingGuard';
 import { colors } from '../theme/colors';
 import { fonts } from '../theme/typography';
 
@@ -33,15 +35,37 @@ export function EmployerPostScreen() {
       Alert.alert('Post a role', 'Add a role title.');
       return;
     }
+    const company = user?.company?.trim() || '';
+    const check = assertSafeListing({
+      title: title.trim(),
+      company,
+      location: location.trim(),
+      salary: salary.trim(),
+      tags: tags.trim(),
+      jobType: jobType.trim(),
+    });
+    if (!check.ok) {
+      Alert.alert('Post a role', check.error);
+      return;
+    }
     setSaving(true);
     try {
+      const profiles = await getAdminProfiles();
+      const verified = profiles.some(
+        (profile) =>
+          profile.role === 'employer' &&
+          profile.status === 'verified' &&
+          !profile.suspended &&
+          (profile.email === user?.email || profile.company === company),
+      );
       const nextQuote = await quoteNextJobPost();
       await addEmployerListing({
         title: title.trim(),
-        location: location.trim() || 'Remote',
+        location: location.trim(),
         jobType: jobType.trim() || 'Full-time',
-        salary: salary.trim() || 'Competitive',
+        salary: salary.trim(),
         tags: tags.trim() || 'General',
+        holdForReview: !verified,
       });
       await recordJobPost(nextQuote);
       setTitle('');
@@ -68,6 +92,9 @@ export function EmployerPostScreen() {
                 ? `${quote.remainingIncluded} of ${quote.included} included jobs left this month. Extra jobs are ₹25.`
                 : `Included jobs are used. This post is ${rupees(quote.chargeInr)}.`
               : 'Two jobs each month are free. Extra jobs are ₹25.'}
+          </Text>
+          <Text style={styles.legalNote}>
+            Unverified recruiters stay in review. Do not charge candidates fees. Salary, location, and company name must be accurate. Posting here does not replace statutory vacancy-notification duties. GST invoices will be issued by the registered Orbit entity.
           </Text>
 
           <Field label="Role title" testID="employer-post-title" value={title} onChange={setTitle} placeholder="Founding Engineer" />
@@ -148,7 +175,14 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     color: colors.muted,
     marginTop: 8,
-    marginBottom: 20,
+    marginBottom: 12,
+  },
+  legalNote: {
+    fontFamily: fonts.regular,
+    fontSize: 13,
+    lineHeight: 20,
+    color: colors.label,
+    marginBottom: 18,
   },
   field: { marginBottom: 14 },
   label: { fontFamily: fonts.medium, fontSize: 13, color: colors.muted, marginBottom: 6 },

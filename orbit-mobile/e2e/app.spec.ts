@@ -42,6 +42,7 @@ test.describe('Customer job feed', () => {
     await signInAsGuest(page);
     await page.getByTestId('tab-profile').click();
     await expect(page.getByText('Sign out')).toBeVisible();
+    await expect(page.getByTestId('close-account')).toBeVisible();
     await page.getByTestId('sign-out').click();
     await expect(page.getByTestId('auth-screen')).toBeVisible();
     await expect(page.getByTestId('auth-sign-in')).toBeVisible();

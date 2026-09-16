@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
+  Alert,
   Linking,
   Pressable,
   ScrollView,
@@ -38,6 +39,8 @@ import {
 import { maskPhone, whatsappUrl } from '../hyd/whatsapp';
 import { forEmployerView } from '../hyd/customerSecurity';
 import { addEmployerListing } from '../services/employerJobs';
+import { getAdminProfiles } from '../services/adminModeration';
+import { assertSafeListing } from '../hyd/listingGuard';
 import {
   getEmployerBilling,
   getPlan,
@@ -96,6 +99,8 @@ export function EmployerDashboardScreen() {
   const [showCompare, setShowCompare] = useState(false);
   const [postOpen, setPostOpen] = useState(false);
   const [postTitle, setPostTitle] = useState('');
+  const [postSalary, setPostSalary] = useState('');
+  const [postLocation, setPostLocation] = useState('Hyderabad, Telangana');
   const [moreJobId, setMoreJobId] = useState<string | null>(null);
   const [notesOpen, setNotesOpen] = useState(false);
   const [inbox, setInbox] = useState<EasyApply[]>([]);
@@ -185,31 +190,52 @@ export function EmployerDashboardScreen() {
 
   async function publishJob() {
     if (!postTitle.trim()) return;
+    const company = user?.company?.trim() || 'Helios Health';
+    const check = assertSafeListing({
+      title: postTitle.trim(),
+      company,
+      location: postLocation.trim(),
+      salary: postSalary.trim(),
+    });
+    if (!check.ok) {
+      Alert.alert('Post a Job', check.error);
+      return;
+    }
+    const profiles = await getAdminProfiles();
+    const verified = profiles.some(
+      (profile) =>
+        profile.role === 'employer' &&
+        profile.status === 'verified' &&
+        !profile.suspended &&
+        (profile.email === user?.email || profile.company === company),
+    );
     const quote = await quoteNextJobPost();
     const created = {
       id: `job-${Date.now()}`,
       title: postTitle.trim(),
-      location: 'Phoenix, AZ',
+      location: postLocation.trim(),
       workType: 'Hybrid' as const,
       employmentType: 'Full-time' as const,
       postedAt: 'Sep 8, 2026',
       postedDaysAgo: 0,
       applicants: 0,
       shortlisted: 0,
-      status: 'Active' as const,
+      status: verified ? ('Active' as const) : ('Draft' as const),
     };
     setJobs((current) => [created, ...current]);
     await addEmployerListing({
       title: created.title,
       location: created.location,
       jobType: created.employmentType,
-      salary: 'Competitive',
+      salary: postSalary.trim(),
       tags: 'Finance',
+      holdForReview: !verified,
     }).catch(() => undefined);
     const nextBilling = await recordJobPost(quote);
     setBilling(nextBilling);
     setJobQuote(await quoteNextJobPost());
     setPostTitle('');
+    setPostSalary('');
     setPostOpen(false);
     setInsightsJobId(null);
     setNav('jobs');
@@ -422,8 +448,9 @@ export function EmployerDashboardScreen() {
                   rows={[
                     `${user?.company ?? 'Helios Health'}`,
                     'Healthcare · HITEC City, Hyderabad',
-                    'GSTIN 36AAACH7788Q1Z9 · Verified employer',
+                    'Verified employer after Super Admin review',
                     'Ghost jobs auto-freeze if you do not reply in 7 days',
+                    'Candidate phones stay masked. GST invoices issued by Orbit entity.',
                   ]}
                 />
               ) : null}
@@ -485,6 +512,25 @@ export function EmployerDashboardScreen() {
               placeholderTextColor={dash.label}
               style={styles.modalInput}
             />
+            <TextInput
+              testID="employer-post-location"
+              value={postLocation}
+              onChangeText={setPostLocation}
+              placeholder="Location"
+              placeholderTextColor={dash.label}
+              style={styles.modalInput}
+            />
+            <TextInput
+              testID="employer-post-salary"
+              value={postSalary}
+              onChangeText={setPostSalary}
+              placeholder="Salary or stipend range"
+              placeholderTextColor={dash.label}
+              style={styles.modalInput}
+            />
+            <Text style={styles.meta}>
+              Unverified recruiters stay in review. Do not charge candidates. Posting does not replace statutory vacancy duties. GST invoices come from the registered Orbit entity.
+            </Text>
             <View style={styles.modalRow}>
               <Pressable onPress={() => setPostOpen(false)} style={styles.ghost}><Text style={styles.ghostText}>Cancel</Text></Pressable>
               <Pressable testID="employer-publish" onPress={() => void publishJob()} style={styles.primary}>
@@ -855,7 +901,7 @@ function BillingView({
       <Text style={styles.billingHint}>
         {plan.name} · {used} of {plan.jobsPerMonth} included jobs used this month · {rupees(spend)} spent
       </Text>
-      <Text style={styles.meta}>Two jobs each month are free. Every extra job is ₹25. Memberships add more included posts.</Text>
+      <Text style={styles.meta}>Two jobs each month are free. Every extra job is ₹25. Memberships add more included posts. Platform fees will be invoiced by the registered Orbit entity; have a CA confirm GST. Posting on Orbit does not replace statutory employer vacancy-notification duties.</Text>
       {MEMBERSHIP_PLANS.map((item) => {
         const active = item.id === plan.id;
         return (

@@ -199,7 +199,7 @@ export function AuthScreen() {
 
           <View style={styles.legalBlock}>
             <Text style={styles.legal}>
-              By continuing you agree to Orbit's Terms of Use and Privacy Policy. Read the Privacy Notice for how we store customer apply data, AI match alerts, and the WhatsApp relay.
+              By continuing you agree to Orbit's Terms for seekers, Terms for employers, and Privacy Policy. We do not give employers your raw phone number. Read the Privacy Notice for DPDP rights, account deletion, and the WhatsApp relay.
             </Text>
             <LegalLinks onOpen={setLegalDoc} />
             <SupportButton />

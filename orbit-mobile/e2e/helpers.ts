@@ -18,4 +18,5 @@ export async function fillEasyApply(page: Page) {
   await page.getByTestId('apply-area').fill('Gachibowli');
   await page.getByTestId('apply-last-job').fill('Staff Nurse');
   await page.getByTestId('apply-join').fill('Immediate');
+  await page.getByTestId('apply-consent').click();
 }

@@ -48,7 +48,11 @@ export function LegalLinks({ onOpen }: LinksProps) {
       </Pressable>
       <Text style={styles.dot}>·</Text>
       <Pressable testID="legal-link-terms" onPress={() => onOpen('terms')}>
-        <Text style={styles.link}>Terms of Use</Text>
+        <Text style={styles.link}>Terms for seekers</Text>
+      </Pressable>
+      <Text style={styles.dot}>·</Text>
+      <Pressable testID="legal-link-terms-employer" onPress={() => onOpen('termsEmployer')}>
+        <Text style={styles.link}>Terms for employers</Text>
       </Pressable>
       <Text style={styles.dot}>·</Text>
       <Pressable testID="legal-link-notice" onPress={() => onOpen('notice')}>

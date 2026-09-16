@@ -17,6 +17,15 @@ const KEY = 'orbit_admin_profiles';
 
 const SEED: AdminProfile[] = [
   {
+    id: 'ap-0',
+    name: 'Sarah Bennett',
+    role: 'employer',
+    company: 'Helios Health',
+    email: 'sarah@helios.health',
+    status: 'verified',
+    note: 'Demo employer — verified for hiring desk',
+  },
+  {
     id: 'ap-1',
     name: 'Maya Chen',
     role: 'employer',

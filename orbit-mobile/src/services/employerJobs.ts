@@ -67,13 +67,19 @@ export async function getEmployerListings(): Promise<EmployerListing[]> {
   }
 }
 
-export async function addEmployerListing(input: Omit<EmployerListing, 'id' | 'applicants' | 'status' | 'postedAt'>): Promise<EmployerListing> {
+export async function addEmployerListing(
+  input: Omit<EmployerListing, 'id' | 'applicants' | 'status' | 'postedAt'> & { holdForReview?: boolean },
+): Promise<EmployerListing> {
   const listings = await getEmployerListings();
   const created: EmployerListing = {
-    ...input,
+    title: input.title,
+    location: input.location,
+    jobType: input.jobType,
+    salary: input.salary,
+    tags: input.tags,
     id: `el-${Date.now()}`,
     applicants: 0,
-    status: getPlatformControlsSync().jobReviewRequired ? 'paused' : 'open',
+    status: input.holdForReview || getPlatformControlsSync().jobReviewRequired ? 'paused' : 'open',
     postedAt: 'Just now',
   };
   await AsyncStorage.setItem(LISTINGS_KEY, JSON.stringify([created, ...listings]));

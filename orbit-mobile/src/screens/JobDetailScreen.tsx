@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -9,6 +9,7 @@ import { useLanguage } from '../hyd/LanguageContext';
 import { isJobFrozenForDisplay } from '../hyd/filter';
 import { scoreJobMatch } from '../hyd/match';
 import { getMatchPrefs, subscribeToJobMatches, unsubscribeFromJobMatches, type MatchPrefs } from '../services/jobAlerts';
+import { reportListing, reportMailto } from '../services/reports';
 import type { JobDetailParams } from '../navigation/types';
 import { colors } from '../theme/colors';
 import { fonts } from '../theme/typography';
@@ -19,6 +20,7 @@ export function JobDetailScreen({ navigation, route }: Props) {
   const { job } = route.params;
   const { copy } = useLanguage();
   const [applyOpen, setApplyOpen] = useState(false);
+  const [reported, setReported] = useState<string | null>(null);
   const [prefs, setPrefs] = useState<MatchPrefs | null>(null);
   const frozen = isJobFrozenForDisplay(job);
   const match = scoreJobMatch(job, prefs ?? { role: '', area: '' });
@@ -108,6 +110,26 @@ export function JobDetailScreen({ navigation, route }: Props) {
             }}
           >
             <Text style={styles.ghostText}>{subscribed ? copy.subscribed : copy.subscribeMatches}</Text>
+          </Pressable>
+          <Pressable
+            testID="report-job"
+            style={({ pressed }) => [styles.ghost, pressed && styles.pressed]}
+            onPress={() => {
+              void reportListing('job', job).then(() => setReported('job'));
+              void Linking.openURL(reportMailto('job', job)).catch(() => undefined);
+            }}
+          >
+            <Text style={styles.ghostText}>{reported === 'job' ? 'Job reported' : 'Report job'}</Text>
+          </Pressable>
+          <Pressable
+            testID="report-employer"
+            style={({ pressed }) => [styles.ghost, pressed && styles.pressed]}
+            onPress={() => {
+              void reportListing('employer', job).then(() => setReported('employer'));
+              void Linking.openURL(reportMailto('employer', job)).catch(() => undefined);
+            }}
+          >
+            <Text style={styles.ghostText}>{reported === 'employer' ? 'Employer reported' : 'Report employer'}</Text>
           </Pressable>
         </ScrollView>
         <SocialFooter message={`${job.title} at ${job.company} — Hyderabad jobs on Orbit.`} />

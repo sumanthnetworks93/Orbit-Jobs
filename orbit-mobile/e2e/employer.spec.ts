@@ -61,6 +61,7 @@ test.describe('Employer workspace', () => {
     await page.getByTestId('employer-go-post').click();
     await expect(page.getByTestId('employer-post-screen')).toBeVisible();
     await page.getByTestId('employer-post-title').fill('Staff Backend Engineer');
+    await page.getByTestId('employer-post-salary').fill('$120,000–$150,000 / year');
     await page.getByTestId('employer-publish').click();
     await expect(page.getByText('Staff Backend Engineer')).toBeVisible();
 

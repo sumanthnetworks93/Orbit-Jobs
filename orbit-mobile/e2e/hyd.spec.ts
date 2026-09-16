@@ -29,6 +29,8 @@ test.describe('Hyderabad hiring layer', () => {
     await expect(page.getByTestId('job-detail')).toBeVisible();
     await expect(page.getByTestId('job-detail')).toContainText('Staff Nurse');
     await expect(page.getByTestId('job-detail-apply')).toBeVisible();
+    await expect(page.getByTestId('report-job')).toBeVisible();
+    await expect(page.getByTestId('report-employer')).toBeVisible();
     await expect(page.getByTestId('job-detail-whatsapp')).toHaveCount(0);
     await page.getByTestId('job-subscribe-matches').click();
     await expect(page.getByTestId('job-subscribe-matches')).toContainText('Subscribed');
