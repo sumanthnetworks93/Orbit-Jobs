@@ -1,0 +1,1146 @@
+{
+  "projectId": "6a9a36c10010254849a2",
+  "endpoint": "https://fra.cloud.appwrite.io/v1",
+  "tablesDB": [
+    {
+      "$id": "orbit",
+      "name": "Orbit",
+      "enabled": true
+    }
+  ],
+  "tables": [
+    {
+      "$id": "jobs",
+      "$permissions": [
+        "read(\"any\")",
+        "create(\"users\")"
+      ],
+      "databaseId": "orbit",
+      "name": "Jobs",
+      "enabled": true,
+      "rowSecurity": true,
+      "columns": [
+        {
+          "key": "jobId",
+          "type": "integer",
+          "required": true,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "title",
+          "type": "varchar",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "company",
+          "type": "varchar",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "location",
+          "type": "varchar",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "area",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 64,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "jobType",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 64,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "tags",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 512,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "salary",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 64,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "initial",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 8,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "color",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 16,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "sourceUrl",
+          "type": "string",
+          "format": "url",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "womenSafe",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": false
+        },
+        {
+          "key": "cabProvided",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": false
+        },
+        {
+          "key": "nearMetro",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": false
+        },
+        {
+          "key": "lateShift",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": false
+        },
+        {
+          "key": "verifiedEmployer",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": false
+        },
+        {
+          "key": "frozen",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": false
+        },
+        {
+          "key": "commuteMin",
+          "type": "integer",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "walkInDate",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 64,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "walkInTime",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 64,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "walkInVenue",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 255,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "walkInAskFor",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "walkInBring",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 255,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "employerPhone",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 20,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "gstin",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 32,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "lastReplyAt",
+          "type": "datetime",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "startupId",
+          "type": "integer",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "externalKey",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "ownerId",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 36,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "status",
+          "type": "string",
+          "format": "enum",
+          "elements": [
+            "open",
+            "paused",
+            "closed"
+          ],
+          "required": false,
+          "array": false,
+          "default": "open",
+          "status": "available",
+          "error": ""
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_job_id",
+          "type": "unique",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "jobId"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_external_key",
+          "type": "unique",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "externalKey"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_area",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "area"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_location",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "location"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_job_type",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "jobType"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_status",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "status"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_verified",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "verifiedEmployer"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_walkin",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "walkInDate"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_owner",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "ownerId"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_search",
+          "type": "fulltext",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "title",
+            "company",
+            "tags"
+          ],
+          "orders": [
+            "ASC",
+            "ASC",
+            "ASC"
+          ]
+        }
+      ]
+    },
+    {
+      "$id": "startups",
+      "$permissions": [
+        "read(\"any\")",
+        "create(\"users\")"
+      ],
+      "databaseId": "orbit",
+      "name": "Startups",
+      "enabled": true,
+      "rowSecurity": true,
+      "columns": [
+        {
+          "key": "startupId",
+          "type": "integer",
+          "required": true,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "name",
+          "type": "varchar",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "description",
+          "type": "text",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": ""
+        },
+        {
+          "key": "category",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 64,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "openRoles",
+          "type": "integer",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "upvotes",
+          "type": "integer",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "initial",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 8,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "color",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 16,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "externalKey",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "sourceUrl",
+          "type": "string",
+          "format": "url",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": null
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_startup_id",
+          "type": "unique",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "startupId"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_startup_external",
+          "type": "unique",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "externalKey"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_category",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "category"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_startup_search",
+          "type": "fulltext",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "name",
+            "description"
+          ],
+          "orders": [
+            "ASC",
+            "ASC"
+          ]
+        }
+      ]
+    },
+    {
+      "$id": "applications",
+      "$permissions": [
+        "create(\"users\")"
+      ],
+      "databaseId": "orbit",
+      "name": "Applications",
+      "enabled": true,
+      "rowSecurity": true,
+      "columns": [
+        {
+          "key": "userId",
+          "type": "varchar",
+          "required": true,
+          "array": false,
+          "size": 36,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "jobId",
+          "type": "integer",
+          "required": true,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "jobTitle",
+          "type": "varchar",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "company",
+          "type": "varchar",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "name",
+          "type": "varchar",
+          "required": true,
+          "array": false,
+          "size": 128,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "phone",
+          "type": "varchar",
+          "required": true,
+          "array": false,
+          "size": 20,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "area",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 64,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "lastJob",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "joinWhen",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 64,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "voiceNote",
+          "type": "text",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": ""
+        },
+        {
+          "key": "resumeText",
+          "type": "text",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": ""
+        },
+        {
+          "key": "channel",
+          "type": "string",
+          "format": "enum",
+          "elements": [
+            "form",
+            "voice",
+            "whatsapp"
+          ],
+          "required": false,
+          "array": false,
+          "default": "form",
+          "status": "available",
+          "error": ""
+        },
+        {
+          "key": "stage",
+          "type": "string",
+          "format": "enum",
+          "elements": [
+            "Applied",
+            "Shortlisted",
+            "Recruiter Review",
+            "Phone Screen",
+            "Interview",
+            "Final Interview",
+            "Offer",
+            "Hired"
+          ],
+          "required": false,
+          "array": false,
+          "default": "Applied",
+          "status": "available",
+          "error": ""
+        },
+        {
+          "key": "appliedAt",
+          "type": "datetime",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": null
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_user_job",
+          "type": "unique",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "userId",
+            "jobId"
+          ],
+          "orders": [
+            "ASC",
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_app_user",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "userId"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_app_job",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "jobId"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_app_stage",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "stage"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_applied_at",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "appliedAt"
+          ],
+          "orders": [
+            "DESC"
+          ]
+        }
+      ]
+    },
+    {
+      "$id": "messages",
+      "$permissions": [
+        "create(\"users\")"
+      ],
+      "databaseId": "orbit",
+      "name": "Messages",
+      "enabled": true,
+      "rowSecurity": true,
+      "columns": [
+        {
+          "key": "applicationId",
+          "type": "varchar",
+          "required": true,
+          "array": false,
+          "size": 36,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "sender",
+          "type": "string",
+          "format": "enum",
+          "elements": [
+            "seeker",
+            "employer"
+          ],
+          "required": false,
+          "array": false,
+          "default": "seeker",
+          "status": "available",
+          "error": ""
+        },
+        {
+          "key": "text",
+          "type": "text",
+          "required": true,
+          "array": false,
+          "status": "available",
+          "error": ""
+        },
+        {
+          "key": "sentAt",
+          "type": "datetime",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": null
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_msg_application",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "applicationId"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_msg_sent",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "sentAt"
+          ],
+          "orders": [
+            "DESC"
+          ]
+        }
+      ]
+    },
+    {
+      "$id": "profiles",
+      "$permissions": [
+        "create(\"users\")"
+      ],
+      "databaseId": "orbit",
+      "name": "Profiles",
+      "enabled": true,
+      "rowSecurity": true,
+      "columns": [
+        {
+          "key": "userId",
+          "type": "varchar",
+          "required": true,
+          "array": false,
+          "size": 36,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "displayName",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "phone",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 20,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "email",
+          "type": "string",
+          "format": "email",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "area",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 64,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "lastJob",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "canJoinWhen",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 64,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "voiceResume",
+          "type": "text",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": ""
+        },
+        {
+          "key": "lang",
+          "type": "string",
+          "format": "enum",
+          "elements": [
+            "en",
+            "te"
+          ],
+          "required": false,
+          "array": false,
+          "default": "en",
+          "status": "available",
+          "error": ""
+        },
+        {
+          "key": "role",
+          "type": "string",
+          "format": "enum",
+          "elements": [
+            "seeker",
+            "employer",
+            "admin"
+          ],
+          "required": false,
+          "array": false,
+          "default": "seeker",
+          "status": "available",
+          "error": ""
+        },
+        {
+          "key": "company",
+          "type": "varchar",
+          "required": false,
+          "array": false,
+          "size": 128,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "notifications",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": true
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_profile_user",
+          "type": "unique",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "userId"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_profile_role",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "role"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_profile_area",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "area"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        }
+      ]
+    },
+    {
+      "$id": "saved_startups",
+      "$permissions": [
+        "create(\"users\")"
+      ],
+      "databaseId": "orbit",
+      "name": "Saved startups",
+      "enabled": true,
+      "rowSecurity": true,
+      "columns": [
+        {
+          "key": "userId",
+          "type": "varchar",
+          "required": true,
+          "array": false,
+          "size": 36,
+          "status": "available",
+          "error": "",
+          "default": null
+        },
+        {
+          "key": "startupId",
+          "type": "integer",
+          "required": true,
+          "array": false,
+          "status": "available",
+          "error": "",
+          "default": null
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_saved_user_startup",
+          "type": "unique",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "userId",
+            "startupId"
+          ],
+          "orders": [
+            "ASC",
+            "ASC"
+          ]
+        },
+        {
+          "key": "idx_saved_user",
+          "type": "key",
+          "status": "available",
+          "error": "",
+          "attributes": [
+            "userId"
+          ],
+          "orders": [
+            "ASC"
+          ]
+        }
+      ]
+    }
+  ]
+}

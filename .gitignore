@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# .NET build output
+bin/
+obj/
+
+# Environment / secrets
+.env
+.env*.local
+!.env.example
+.cursor/
+.codex/
+*.db
+orbit-backend/appsettings.Development.json
+
+# Test output
+test-results/
+playwright-report/
+blob-report/
+coverage/
+
+# Expo
+.expo/
+dist/
+web-build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vs/
+.idea/
+*.user
+
+# Agent tooling
+.agents/
+.claude/

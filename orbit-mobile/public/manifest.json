@@ -1,0 +1,27 @@
+{
+  "id": "/",
+  "name": "Orbit",
+  "short_name": "Orbit",
+  "description": "Hyderabad jobs — walk-ins, WhatsApp apply, verified employers.",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F4F2EE",
+  "theme_color": "#16140F",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/logo192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}
