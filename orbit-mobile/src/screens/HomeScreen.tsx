@@ -588,7 +588,7 @@ const styles = StyleSheet.create({
     color: colors.ink,
   },
   locationScrim: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: 'rgba(22,20,15,0.18)',
     zIndex: 20,
   },

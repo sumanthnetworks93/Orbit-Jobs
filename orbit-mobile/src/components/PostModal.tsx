@@ -189,7 +189,7 @@ export function PostModal({ visible, variant, onClose, onPosted }: Props) {
 
 const styles = StyleSheet.create({
   backdrop: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: 'rgba(22, 20, 15, 0.28)',
   },
   sheetWrap: {

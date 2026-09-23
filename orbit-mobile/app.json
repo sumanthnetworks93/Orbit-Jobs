@@ -10,11 +10,6 @@
       "orbit",
       "appwrite-callback-6a9a36c10010254849a2"
     ],
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#F4F2EE"
-    },
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.orbit.app",

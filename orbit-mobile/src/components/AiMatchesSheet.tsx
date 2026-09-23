@@ -67,7 +67,7 @@ export function AiMatchesSheet({ prefs, matches, onClose, onSubscribe, onUnsubsc
 
 const styles = StyleSheet.create({
   scrim: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: 'rgba(22,20,15,0.18)',
     zIndex: 30,
   },

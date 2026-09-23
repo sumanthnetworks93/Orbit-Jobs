@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { API_BASE_URL } from '../config/api';
 import { qrImageSrc, resolvePhonePreviewUrl } from '../hyd/previewUrl';
 import { colors } from '../theme/colors';
 import { fonts } from '../theme/typography';
 
 function pageLocation(): { hostname: string; port: string; protocol: string } {
-  if (typeof window === 'undefined') {
+  if (Platform.OS !== 'web' || typeof window === 'undefined' || !window.location) {
     return { hostname: 'localhost', port: '8081', protocol: 'http:' };
   }
   return {
-    hostname: window.location.hostname,
+    hostname: window.location.hostname || 'localhost',
     port: window.location.port || (window.location.protocol === 'https:' ? '443' : '80'),
-    protocol: window.location.protocol,
+    protocol: window.location.protocol || 'http:',
   };
 }
 

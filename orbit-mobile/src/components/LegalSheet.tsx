@@ -74,7 +74,7 @@ export function LegalSupportBlock() {
 }
 
 const styles = StyleSheet.create({
-  backdrop: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(22,20,15,0.28)' },
+  backdrop: { ...StyleSheet.absoluteFill, backgroundColor: 'rgba(22,20,15,0.28)' },
   sheet: {
     marginTop: 'auto',
     maxHeight: '88%',

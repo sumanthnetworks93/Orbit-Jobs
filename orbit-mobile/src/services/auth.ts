@@ -68,7 +68,7 @@ export function isGuestSession(user: AuthUser | null) {
 
 export function isE2EMode() {
   if (process.env.EXPO_PUBLIC_E2E === '1') return true;
-  if (typeof window !== 'undefined') {
+  if (Platform.OS === 'web' && typeof window !== 'undefined' && window?.location?.search) {
     return new URLSearchParams(window.location.search).get('e2e') === '1';
   }
   return false;
@@ -89,7 +89,9 @@ function notifyAuthChange(user: AuthUser | null) {
 
 export function subscribeAuth(listener: (user: AuthUser | null) => void) {
   authListeners.add(listener);
-  return () => authListeners.delete(listener);
+  return () => {
+    authListeners.delete(listener);
+  };
 }
 
 export function mapAppwriteUser(user: Models.User<Models.Preferences>): AuthUser {
@@ -117,7 +119,11 @@ function getSsoRedirectUri() {
 }
 
 function getCallbackParams(source?: string) {
-  const raw = source ?? (typeof window !== 'undefined' ? window.location.href : '');
+  const raw =
+    source ??
+    (Platform.OS === 'web' && typeof window !== 'undefined' && window?.location?.href
+      ? window.location.href
+      : '');
   if (!raw) return { userId: null, secret: null, error: null };
 
   const url = new URL(raw);
@@ -141,7 +147,7 @@ export async function completeSsoFromUrl(callbackUrl?: string): Promise<AuthUser
   const user = mapAppwriteUser(await account.get());
   notifyAuthChange(user);
 
-  if (Platform.OS === 'web' && typeof window !== 'undefined') {
+  if (Platform.OS === 'web' && typeof window !== 'undefined' && window?.location?.href && window?.history) {
     const clean = new URL(window.location.href);
     clean.searchParams.delete('userId');
     clean.searchParams.delete('user_id');
@@ -272,7 +278,7 @@ export async function signInWithSso(provider: AuthProviderId): Promise<AuthUser>
     throw new Error('Appwrite did not return an SSO URL. Check that this provider is enabled.');
   }
 
-  if (Platform.OS === 'web' && typeof window !== 'undefined') {
+  if (Platform.OS === 'web' && typeof window !== 'undefined' && window?.location?.assign) {
     window.location.assign(String(loginUrl));
     return new Promise<AuthUser>(() => undefined);
   }

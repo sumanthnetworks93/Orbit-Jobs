@@ -67,6 +67,7 @@ export function ApplySheet({ job, visible, onClose }: Props) {
   }
 
   async function submit(channel: 'form' | 'voice' | 'whatsapp') {
+    if (!job) return;
     if (!isGuestApplyEnabled() && isGuestSession(user)) {
       Alert.alert('Apply paused', 'Super Admin has turned off guest apply.');
       return;
@@ -221,7 +222,7 @@ function Field({
 }
 
 const styles = StyleSheet.create({
-  backdrop: { ...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(22,20,15,0.28)' },
+  backdrop: { ...StyleSheet.absoluteFill, backgroundColor: 'rgba(22,20,15,0.28)' },
   sheet: {
     marginTop: 'auto',
     maxHeight: '88%',

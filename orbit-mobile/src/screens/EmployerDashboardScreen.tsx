@@ -989,7 +989,7 @@ const styles = StyleSheet.create({
   },
   sidebarHidden: { display: 'none' },
   menuScrim: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: 'rgba(20,20,20,0.28)',
     zIndex: 15,
   },
@@ -1237,7 +1237,7 @@ const styles = StyleSheet.create({
   },
   ghostText: { fontFamily: fonts.medium, fontSize: 13, color: dash.ink },
   overlay: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     backgroundColor: 'rgba(20,20,20,0.28)',
     alignItems: 'center',
     justifyContent: 'center',
@@ -1262,7 +1262,7 @@ const styles = StyleSheet.create({
     color: dash.ink,
   },
   modalRow: { flexDirection: 'row', justifyContent: 'flex-end', gap: 10, marginTop: 16 },
-  drawerWrap: { ...StyleSheet.absoluteFillObject, flexDirection: 'row', justifyContent: 'flex-end' },
+  drawerWrap: { ...StyleSheet.absoluteFill, flexDirection: 'row', justifyContent: 'flex-end' },
   drawerScrim: { flex: 1, backgroundColor: 'rgba(20,20,20,0.2)' },
   drawer: {
     width: 420,

@@ -20,6 +20,13 @@ vi.mock('@react-native-async-storage/async-storage', () => ({
   },
 }));
 
+vi.mock('react-native', () => ({
+  Platform: {
+    OS: 'ios',
+    select: (obj: any) => obj.ios ?? obj.default,
+  },
+}));
+
 beforeEach(() => {
   store.clear();
 });

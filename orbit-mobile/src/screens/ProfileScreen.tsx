@@ -1124,7 +1124,7 @@ const styles = StyleSheet.create({
 
   modalBackdrop: {
 
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
 
     backgroundColor: 'rgba(22, 20, 15, 0.28)',
 

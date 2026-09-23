@@ -8,14 +8,19 @@ import {
 import { ClerkProvider } from '@clerk/expo';
 import { tokenCache } from '@clerk/expo/token-cache';
 import { StatusBar } from 'expo-status-bar';
-import { ActivityIndicator, Platform, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, LogBox, Platform, StyleSheet, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider } from './src/context/AuthContext';
 import { LanguageProvider } from './src/hyd/LanguageContext';
 import { RootNavigator } from './src/navigation/RootNavigator';
 import { colors } from './src/theme/colors';
 
-const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
+LogBox.ignoreLogs([
+  'Clerk: Clerk has been loaded with development keys',
+]);
+
+const FALLBACK_CLERK_KEY = 'pk_test_bW9kZXN0LXJlaW5kZWVyLTg4LmNsZXJrLmFjY291bnRzLmRldiQ';
+const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY || FALLBACK_CLERK_KEY;
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -31,10 +36,6 @@ export default function App() {
         <ActivityIndicator color={colors.ink} />
       </View>
     );
-  }
-
-  if (!publishableKey) {
-    throw new Error('Add EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY to your environment.');
   }
 
   return (

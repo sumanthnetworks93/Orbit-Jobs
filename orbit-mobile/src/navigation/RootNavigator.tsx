@@ -100,12 +100,12 @@ function MainTabs() {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: [styles.tabBar, compact && styles.tabBarCompact],
-        tabBarButton: ({ href: _href, style, children, ...props }) => (
+        tabBarButton: ({ href: _href, style, children, ...props }: any) => (
           <Pressable
             {...props}
             android_ripple={{ color: 'transparent' }}
             style={(state) => [
-              typeof style === 'function' ? style(state) : style,
+              typeof style === 'function' ? (style as (s: any) => any)(state) : style,
               styles.tabButton,
             ]}
           >
@@ -186,12 +186,12 @@ function AdminTabs() {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: [styles.tabBar, compact && styles.tabBarCompact],
-        tabBarButton: ({ href: _href, style, children, ...props }) => (
+        tabBarButton: ({ href: _href, style, children, ...props }: any) => (
           <Pressable
             {...props}
             android_ripple={{ color: 'transparent' }}
             style={(state) => [
-              typeof style === 'function' ? style(state) : style,
+              typeof style === 'function' ? (style as (s: any) => any)(state) : style,
               styles.tabButton,
             ]}
           >
