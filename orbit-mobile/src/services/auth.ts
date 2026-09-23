@@ -223,20 +223,26 @@ export function isMockSession(user: AuthUser | null): boolean {
   );
 }
 
+export async function getStoredMockUser(): Promise<AuthUser | null> {
+  if ((await AsyncStorage.getItem(ADMIN_SESSION_KEY)) === '1') {
+    return MOCK_ADMIN;
+  }
+  if ((await AsyncStorage.getItem(EMPLOYER_SESSION_KEY)) === '1') {
+    return MOCK_EMPLOYER;
+  }
+  if ((await AsyncStorage.getItem(DEMO_SEEKER_SESSION_KEY)) === '1') {
+    return DEMO_SEEKER;
+  }
+  if ((await AsyncStorage.getItem(E2E_SESSION_KEY)) === '1') {
+    return E2E_USER;
+  }
+  return null;
+}
+
 export async function getCurrentUser(): Promise<AuthUser | null> {
   try {
-    if ((await AsyncStorage.getItem(ADMIN_SESSION_KEY)) === '1') {
-      return MOCK_ADMIN;
-    }
-    if ((await AsyncStorage.getItem(EMPLOYER_SESSION_KEY)) === '1') {
-      return MOCK_EMPLOYER;
-    }
-    if ((await AsyncStorage.getItem(DEMO_SEEKER_SESSION_KEY)) === '1') {
-      return DEMO_SEEKER;
-    }
-    if ((await AsyncStorage.getItem(E2E_SESSION_KEY)) === '1') {
-      return E2E_USER;
-    }
+    const stored = await getStoredMockUser();
+    if (stored) return stored;
     const fromCallback = await completeSsoFromUrl();
     if (fromCallback) return fromCallback;
     return mapAppwriteUser(await account.get());

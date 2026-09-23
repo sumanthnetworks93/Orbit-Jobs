@@ -3,7 +3,7 @@ import React, { createContext, useContext, useEffect, useMemo, useState } from '
 import { hydratePlatformControls } from '../services/adminControl';
 import { hydrateJobOverrides } from '../services/adminJobs';
 import {
-  getCurrentUser,
+  getStoredMockUser,
   isMockSession,
   subscribeAuth,
   type AuthUser,
@@ -36,6 +36,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { isLoaded, isSignedIn, getToken } = useClerkAuth();
   const { user: clerkUser } = useUser();
   const [mockUser, setMockUser] = useState<AuthUser | null>(null);
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     void Promise.all([hydratePlatformControls(), hydrateJobOverrides()]);
@@ -44,13 +45,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     let active = true;
 
-    getCurrentUser()
+    getStoredMockUser()
       .then((current) => {
-        if (active && isMockSession(current)) {
-          setMockUser(current);
-        }
+        if (active) setMockUser(current);
       })
-      .catch(() => undefined);
+      .catch(() => undefined)
+      .finally(() => {
+        if (active) setHydrated(true);
+      });
 
     return subscribeAuth((nextUser) => {
       setMockUser(isMockSession(nextUser) ? nextUser : null);
@@ -62,11 +64,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const value = useMemo<AuthContextValue>(
     () => ({
       user,
-      loading: !isLoaded && !mockUser,
+      loading: !hydrated,
       idToken: null,
       refreshToken: () => getToken(),
     }),
-    [mockUser, getToken, isLoaded, user],
+    [hydrated, mockUser, getToken, user],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

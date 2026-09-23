@@ -23,14 +23,14 @@ const FALLBACK_CLERK_KEY = 'pk_test_bW9kZXN0LXJlaW5kZWVyLTg4LmNsZXJrLmFjY291bnRz
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY || FALLBACK_CLERK_KEY;
 
 export default function App() {
-  const [fontsLoaded] = useFonts({
+  const [fontsLoaded, fontError] = useFonts({
     HankenGrotesk_400Regular,
     HankenGrotesk_500Medium,
     HankenGrotesk_600SemiBold,
     HankenGrotesk_700Bold,
   });
 
-  if (Platform.OS !== 'web' && !fontsLoaded) {
+  if (Platform.OS !== 'web' && !fontsLoaded && !fontError) {
     return (
       <View style={styles.loading}>
         <ActivityIndicator color={colors.ink} />
